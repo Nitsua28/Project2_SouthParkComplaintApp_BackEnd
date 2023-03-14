@@ -3,6 +3,7 @@ package com.revature.Project2_SouthParkComplaintApp_BackEnd.service;
 import java.util.List;
 
 import com.revature.Project2_SouthParkComplaintApp_BackEnd.entity.AppUser;
+import com.revature.Project2_SouthParkComplaintApp_BackEnd.entity.LoginBody;
 
 public interface AppUserService {
     AppUser insert(AppUser appUser);
@@ -12,4 +13,6 @@ public interface AppUserService {
     boolean delete(Long id);
     //List<AppUser> getAll(String flag);
     List<AppUser> findByUsername(String username);
+
+    //AppUser loginWithBody(LoginBody loginBody);
 }

@@ -27,7 +27,8 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public AppUser update(AppUser appUser){return appUserRepository.save(appUser);}
-
+    //@Override
+    //public AppUser loginWithBody(AppUser appUser){return appUserRepository.login(appUser);}
     @Override
     public boolean delete(Long id) {
         boolean found = appUserRepository.existsById(id);

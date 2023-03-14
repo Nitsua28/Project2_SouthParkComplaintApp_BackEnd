@@ -2,7 +2,9 @@ package com.revature.Project2_SouthParkComplaintApp_BackEnd.controller;
 
 import java.util.List;
 
+import com.revature.Project2_SouthParkComplaintApp_BackEnd.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,26 +21,35 @@ public class MeetingController {
     MeetingService meetingService;
 
     @PostMapping()
-    public Meeting insert(@RequestBody Meeting meeting) {return meetingService.insert(meeting);};
+    public ResponseEntity insert(@RequestBody Meeting meeting) {
+        meetingService.insert(meeting);
+        return ResponseEntity.status(201).build();
+    };
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Meeting> getAll(@RequestParam(required = false, value = "flag") String flag) {
-//        if(flag == null) return appUserService.getAll();
-//            // Otherwise, call the overloaded method:
-//        else return appUserService.getAll(flag);
-        return meetingService.getAll();
+    public ResponseEntity<List<Meeting>> getAll() {
+        return ResponseEntity.ok(meetingService.getAll());
     }
 
     @GetMapping("/{meetingIdentifier}")
-    public Meeting getById(@PathVariable("meetingIdentifier") String identifier) {
+    public ResponseEntity<Meeting> getById(@PathVariable("meetingIdentifier") String identifier) {
 
-        Long id = Long.parseLong(identifier);
-        return meetingService.getById(id);
+        try {
+            Long id = Long.parseLong(identifier);
+            return ResponseEntity.ok(meetingService.getById(id));
+        } catch(Exception e) {
+                return ResponseEntity.status(404).build();
+        }
 
     }
 
     @PutMapping()
-    public Meeting update(@RequestBody Meeting meeting) {return meetingService.update(meeting);}
+    public ResponseEntity<Meeting> update(@RequestBody Meeting meeting) {
+        try{return ResponseEntity.ok(meetingService.update(meeting));}
+        catch(Exception e){
+            return ResponseEntity.status(404).build();
+        }
+    }
 
     @DeleteMapping("/{meetingIdentifier}")
     public boolean delete(@PathVariable("meetingIdentifier") String identifier) {

@@ -2,7 +2,9 @@ package com.revature.Project2_SouthParkComplaintApp_BackEnd.controller;
 
 import java.util.List;
 
+import com.revature.Project2_SouthParkComplaintApp_BackEnd.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,26 +21,34 @@ public class ComplaintController {
     ComplaintService complaintService;
 
     @PostMapping()
-    public Complaint insert(@RequestBody Complaint complaint) {return complaintService.insert(complaint);};
+    public ResponseEntity insert(@RequestBody Complaint complaint) {
+        complaintService.insert(complaint);
+        return ResponseEntity.status(201).build();
+    };
 
     @GetMapping()
-    public List<Complaint> getResponse(@RequestParam(required = false) String status,@RequestParam(required = false) Long meeting) {
-        if(status == null & meeting == null) return complaintService.getAll();
-        else if (status == null) {
-            return complaintService.findByMeetingID(meeting);
-
-        } else return complaintService.findByStatus(status);
+    public ResponseEntity<List<Complaint>> getResponse(@RequestParam(required = false) String status, @RequestParam(required = false) Long meeting) {
+        try {
+            if (status == null & meeting == null) return ResponseEntity.ok(complaintService.getAll());
+            else if (status == null) {
+                return ResponseEntity.ok(complaintService.findByMeetingID(meeting));
+            }
+            else return ResponseEntity.ok(complaintService.findByStatus(status));
+        }
+        catch (Exception e){
+            return ResponseEntity.status(404).build();
+        }
 
     }
 
-    @GetMapping("{complaintIdentifier}")
-    public Complaint getById(@PathVariable("complaintIdentifier") String identifier) {
-//        try {
+    @GetMapping("/{complaintIdentifier}")
+    public ResponseEntity<Complaint> getById(@PathVariable("complaintIdentifier") String identifier) {
+        try {
             Long id = Long.parseLong(identifier);
-            return complaintService.getById(id);
-//    } catch(Exception e) {
-//        return complaintService.findByStatus(identifier);
-//        }
+            return ResponseEntity.ok(complaintService.getById(id));
+        } catch (Exception e){
+            return ResponseEntity.status(404).build();
+        }
     }
 //    @RequestMapping(value = "", method = RequestMethod.GET)
 ////    @ResponseBody
@@ -54,13 +64,22 @@ public class ComplaintController {
 //
 //    }
     @PutMapping()
-    public Complaint update(@RequestBody Complaint complaint) {return complaintService.update(complaint);}
+    public ResponseEntity<Complaint> update(@RequestBody Complaint complaint) {
+        try{return ResponseEntity.ok(complaintService.update(complaint));}
+        catch(Exception e){
+            return ResponseEntity.status(404).build();
+        }
+    }
 
     @DeleteMapping("/{appUserIdentifier}")
-    public boolean delete(@PathVariable("appUserIdentifier") String identifier) {
+    public ResponseEntity<Boolean> delete(@PathVariable("appUserIdentifier") String identifier) {
 
-            Long id = Long.parseLong(identifier);
-            return complaintService.delete(id);
+        Long id = Long.parseLong(identifier);
+        boolean response = complaintService.delete(id);
+        ResponseEntity responseEntity = null;
+        if (response){ responseEntity = ResponseEntity.ok(true);}
+        else{ responseEntity = ResponseEntity.status(404).build();}
+        return responseEntity;
 
     }
 }

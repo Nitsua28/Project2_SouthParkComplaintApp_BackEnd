@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     List<AppUser> findByUsername(String username);
+    //AppUser login(AppUser appUser);
 
 
 }
