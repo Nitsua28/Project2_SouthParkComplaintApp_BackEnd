@@ -65,7 +65,10 @@ public class ComplaintController {
 //    }
     @PutMapping()
     public ResponseEntity<Complaint> update(@RequestBody Complaint complaint) {
-        try{return ResponseEntity.ok(complaintService.update(complaint));}
+        try{
+            complaintService.getById(complaint.getComplaint_id());
+            return ResponseEntity.ok(complaintService.update(complaint));
+        }
         catch(Exception e){
             return ResponseEntity.status(404).build();
         }

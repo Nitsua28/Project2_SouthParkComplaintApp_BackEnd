@@ -51,7 +51,10 @@ public class AppUserController {
     }
     @PutMapping()
     public ResponseEntity<AppUser> update(@RequestBody AppUser appUser) {
-        try{return ResponseEntity.ok(appUserService.update(appUser));}
+        try{
+            appUserService.getById(appUser.getUser_id());
+            return ResponseEntity.ok(appUserService.update(appUser));
+        }
         catch(Exception e){
             return ResponseEntity.status(404).build();
         }

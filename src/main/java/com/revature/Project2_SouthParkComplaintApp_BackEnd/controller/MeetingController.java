@@ -45,17 +45,24 @@ public class MeetingController {
 
     @PutMapping()
     public ResponseEntity<Meeting> update(@RequestBody Meeting meeting) {
-        try{return ResponseEntity.ok(meetingService.update(meeting));}
+        try{
+            meetingService.getById(meeting.getMeeting_Id());
+            return ResponseEntity.ok(meetingService.update(meeting));
+        }
         catch(Exception e){
             return ResponseEntity.status(404).build();
         }
     }
 
     @DeleteMapping("/{meetingIdentifier}")
-    public boolean delete(@PathVariable("meetingIdentifier") String identifier) {
+    public ResponseEntity<Boolean> delete(@PathVariable("meetingIdentifier") String identifier) {
 
         Long id = Long.parseLong(identifier);
-        return meetingService.delete(id);
+        boolean response = meetingService.delete(id);
+        ResponseEntity responseEntity = null;
+        if (response){ responseEntity = ResponseEntity.ok(true);}
+        else{ responseEntity = ResponseEntity.status(404).build();}
+        return responseEntity;
 
     }
 }
