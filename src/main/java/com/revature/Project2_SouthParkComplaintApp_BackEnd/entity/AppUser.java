@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class AppUser {
     @Id
     private Long user_id;
+    private String name;
     private String username;
     private String password;
     private String role;

@@ -3,6 +3,7 @@ package com.revature.Project2_SouthParkComplaintApp_BackEnd.controller;
 import java.util.List;
 
 import com.revature.Project2_SouthParkComplaintApp_BackEnd.entity.AppUser;
+import com.revature.Project2_SouthParkComplaintApp_BackEnd.entity.Complaint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +27,10 @@ public class MeetingController {
         return ResponseEntity.status(201).build();
     };
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<Meeting>> getAll() {
-        return ResponseEntity.ok(meetingService.getAll());
-    }
+//    @RequestMapping(value = "", method = RequestMethod.GET)
+//    public ResponseEntity<List<Meeting>> getAll() {
+//        return ResponseEntity.ok(meetingService.getAll());
+//    }
 
     @GetMapping("/{meetingIdentifier}")
     public ResponseEntity<Meeting> getById(@PathVariable("meetingIdentifier") String identifier) {
@@ -42,7 +43,17 @@ public class MeetingController {
         }
 
     }
+    @GetMapping()
+    public ResponseEntity<List<Meeting>> getResponse(@RequestParam(required = false) Long complaintId) {
+        try {
+            if (complaintId != null) return ResponseEntity.ok(meetingService.findByComplaintId(complaintId));
+            else return ResponseEntity.ok(meetingService.getAll());
+        }
+        catch (Exception e){
+            return ResponseEntity.status(404).build();
+        }
 
+    }
     @PutMapping()
     public ResponseEntity<Meeting> update(@RequestBody Meeting meeting) {
         try{

@@ -27,12 +27,9 @@ public class ComplaintController {
     };
 
     @GetMapping()
-    public ResponseEntity<List<Complaint>> getResponse(@RequestParam(required = false) String status, @RequestParam(required = false) Long meeting) {
+    public ResponseEntity<List<Complaint>> getResponse(@RequestParam(required = false) String status) {
         try {
-            if (status == null & meeting == null) return ResponseEntity.ok(complaintService.getAll());
-            else if (status == null) {
-                return ResponseEntity.ok(complaintService.findByMeetingID(meeting));
-            }
+            if (status == null) return ResponseEntity.ok(complaintService.getAll());
             else return ResponseEntity.ok(complaintService.findByStatus(status));
         }
         catch (Exception e){
@@ -41,6 +38,20 @@ public class ComplaintController {
 
     }
 
+    //    @GetMapping()
+//    public ResponseEntity<List<Complaint>> getResponse(@RequestParam(required = false) String status, @RequestParam(required = false) Long meeting) {
+//        try {
+//            if (status == null & meeting == null) return ResponseEntity.ok(complaintService.getAll());
+//            else if (status == null) {
+//                return ResponseEntity.ok(complaintService.findByMeetingID(meeting));
+//            }
+//            else return ResponseEntity.ok(complaintService.findByStatus(status));
+//        }
+//        catch (Exception e){
+//            return ResponseEntity.status(404).build();
+//        }
+//
+//    }
     @GetMapping("/{complaintIdentifier}")
     public ResponseEntity<Complaint> getById(@PathVariable("complaintIdentifier") String identifier) {
         try {
@@ -50,19 +61,7 @@ public class ComplaintController {
             return ResponseEntity.status(404).build();
         }
     }
-//    @RequestMapping(value = "", method = RequestMethod.GET)
-////    @ResponseBody
-//    public Complaint getByStatus(@RequestParam String status) {
-//        return complaintService.findByStatus(status);
-//    }
 
-//    @GetMapping("/meetingId={complaintIdentifier}")
-//    public Complaint getByMeetingId(@PathVariable("complaintIdentifier") String identifier) {
-//
-//        Long id = Long.parseLong(identifier);
-//        return (Complaint) complaintService.findByMeetingID(id);
-//
-//    }
     @PutMapping()
     public ResponseEntity<Complaint> update(@RequestBody Complaint complaint) {
         try{

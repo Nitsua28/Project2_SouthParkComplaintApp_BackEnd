@@ -11,4 +11,7 @@ public interface MeetingService {
     List<Meeting> getAll();
     Meeting update(Meeting meeting);
     boolean delete(Long id);
+
+    List<Meeting> findByComplaintId(Long complaint);
+
 }

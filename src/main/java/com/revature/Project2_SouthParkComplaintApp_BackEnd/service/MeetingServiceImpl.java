@@ -1,5 +1,6 @@
 package com.revature.Project2_SouthParkComplaintApp_BackEnd.service;
 
+import com.revature.Project2_SouthParkComplaintApp_BackEnd.entity.Complaint;
 import com.revature.Project2_SouthParkComplaintApp_BackEnd.entity.Meeting;
 import com.revature.Project2_SouthParkComplaintApp_BackEnd.repository.MeetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class MeetingServiceImpl implements MeetingService{
     @Override
     public Meeting update(Meeting meeting){return meetingRepository.save(meeting);}
 
+    public List<Meeting> findByComplaintId(Long complaint){return meetingRepository.findByComplaint(complaint);}
     @Override
     public boolean delete(Long id) {
         boolean found = meetingRepository.existsById(id);
