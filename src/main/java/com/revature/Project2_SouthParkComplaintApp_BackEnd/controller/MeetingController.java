@@ -27,10 +27,10 @@ public class MeetingController {
         return ResponseEntity.status(201).build();
     };
 
-//    @RequestMapping(value = "", method = RequestMethod.GET)
-//    public ResponseEntity<List<Meeting>> getAll() {
-//        return ResponseEntity.ok(meetingService.getAll());
-//    }
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<List<Meeting>> getAll() {
+        return ResponseEntity.ok(meetingService.getAll());
+    }
 
     @GetMapping("/{meetingIdentifier}")
     public ResponseEntity<Meeting> getById(@PathVariable("meetingIdentifier") String identifier) {

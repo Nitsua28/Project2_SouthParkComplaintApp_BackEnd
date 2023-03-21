@@ -17,9 +17,9 @@ public class Meeting {
     private String address;
     private Integer time;
     private String summary;
-    @ElementCollection
-    private List<String> attendees = new ArrayList<>();
-    @ElementCollection
-    private List<String> speakers = new ArrayList<>();;
+//    @ElementCollection
+//    private List<String> attendees = new ArrayList<>();
+//    @ElementCollection
+//    private List<String> speakers = new ArrayList<>();;
 
 }
