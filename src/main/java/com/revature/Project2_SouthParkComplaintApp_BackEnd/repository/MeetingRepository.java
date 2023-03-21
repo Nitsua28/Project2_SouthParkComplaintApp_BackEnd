@@ -12,6 +12,6 @@ import java.util.List;
 
 public interface MeetingRepository extends JpaRepository<Meeting, Long> {
 
-    List<Meeting> findByComplaint(Long complaint);
+    //List<Meeting> findByComplaint(Long complaint);
 
 }

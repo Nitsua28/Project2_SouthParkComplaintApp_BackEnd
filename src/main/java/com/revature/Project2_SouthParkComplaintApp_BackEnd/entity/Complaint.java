@@ -14,6 +14,7 @@ public class Complaint {
     private String title;
     private String description;
     private String status;
+    private Long meeting;
     private Integer priority;
 
 }

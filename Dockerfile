@@ -16,7 +16,7 @@ RUN mvn -f /home/app/pom.xml clean package
 #
 # Using Java as base image
 FROM openjdk:11-jre-slim
-COPY --from=build /home/app/target/spring-boot-demo-0.0.1-SNAPSHOT.jar /usr/local/lib/demo.jar
+COPY --from=build /home/app/target/Project2_SouthParkComplaintApp_BackEnd-0.0.1-SNAPSHOT.jar /usr/local/lib/demo.jar
 # Expose port 8080 so we can access from our end:
 EXPOSE 8080
 # Execute when container is started:

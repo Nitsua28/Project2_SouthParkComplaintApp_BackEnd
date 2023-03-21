@@ -11,5 +11,5 @@ public interface ComplaintService {
     Complaint update(Complaint complaint);
     boolean delete(Long id);
     List <Complaint> findByStatus(String status);
-    //List<Complaint> findByMeetingID(Long meeting);
+    List<Complaint> findByMeetingID(Long meeting);
 }

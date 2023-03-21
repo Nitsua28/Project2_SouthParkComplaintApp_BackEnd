@@ -46,9 +46,9 @@ public class ComplaintServiceImpl implements ComplaintService{
 //                return employeeRepository.findAll();
 //        }
 //    }
-//    public List<Complaint> findByMeetingID(Long meeting){
-//        return complaintRepository.findByMeeting(meeting);
-//    };
+    public List<Complaint> findByMeetingID(Long meeting){
+        return complaintRepository.findByMeeting(meeting);
+    };
     public List <Complaint> findByStatus(String status) {return complaintRepository.findByStatus(status);}
 
 }

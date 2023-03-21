@@ -28,7 +28,7 @@ public class MeetingServiceImpl implements MeetingService{
     @Override
     public Meeting update(Meeting meeting){return meetingRepository.save(meeting);}
 
-    public List<Meeting> findByComplaintId(Long complaint){return meetingRepository.findByComplaint(complaint);}
+    //public List<Meeting> findByComplaintId(Long complaint){return meetingRepository.findByComplaint(complaint);}
     @Override
     public boolean delete(Long id) {
         boolean found = meetingRepository.existsById(id);

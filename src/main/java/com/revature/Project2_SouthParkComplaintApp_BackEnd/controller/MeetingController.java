@@ -43,17 +43,17 @@ public class MeetingController {
         }
 
     }
-    @GetMapping()
-    public ResponseEntity<List<Meeting>> getResponse(@RequestParam(required = false) Long complaintId) {
-        try {
-            if (complaintId != null) return ResponseEntity.ok(meetingService.findByComplaintId(complaintId));
-            else return ResponseEntity.ok(meetingService.getAll());
-        }
-        catch (Exception e){
-            return ResponseEntity.status(404).build();
-        }
-
-    }
+//    @GetMapping()
+//    public ResponseEntity<List<Meeting>> getResponse(@RequestParam(required = false) Long complaintId) {
+//        try {
+//            if (complaintId != null) return ResponseEntity.ok(meetingService.findByComplaintId(complaintId));
+//            else return ResponseEntity.ok(meetingService.getAll());
+//        }
+//        catch (Exception e){
+//            return ResponseEntity.status(404).build();
+//        }
+//
+//    }
     @PutMapping()
     public ResponseEntity<Meeting> update(@RequestBody Meeting meeting) {
         try{
