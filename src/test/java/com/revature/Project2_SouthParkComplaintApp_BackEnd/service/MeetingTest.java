@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 // Make sure we have this @SpringBootTest annotation at the top of our test classes
 @SpringBootTest
+@TestPropertySource("classpath:test.properties")
 public class MeetingTest {
 
     // mock the pet repository bean, pass in the interface/class that we're mocking:
