@@ -3,6 +3,8 @@ package com.revature.Project2_SouthParkComplaintApp_BackEnd.controller;
 import java.util.List;
 
 import com.revature.Project2_SouthParkComplaintApp_BackEnd.entity.AppUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +19,14 @@ import com.revature.Project2_SouthParkComplaintApp_BackEnd.service.ComplaintServ
 @RequestMapping("/complaint")
 
 public class ComplaintController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     ComplaintService complaintService;
 
     @PostMapping()
     public ResponseEntity insert(@RequestBody Complaint complaint) {
         complaintService.insert(complaint);
+        logger.info("Object made: " + complaint.toString());
         return ResponseEntity.status(201).build();
     };
 
@@ -38,16 +42,24 @@ public class ComplaintController {
 //
 //    }
 
-        @GetMapping()
+    @GetMapping()
     public ResponseEntity<List<Complaint>> getResponse(@RequestParam(required = false) String status, @RequestParam(required = false) Long meeting) {
         try {
-            if (status == null & meeting == null) return ResponseEntity.ok(complaintService.getAll());
+            if (status == null & meeting == null) {
+                logger.info("Success");
+                return ResponseEntity.ok(complaintService.getAll());
+            }
             else if (status == null) {
+                logger.info("Success");
                 return ResponseEntity.ok(complaintService.findByMeetingID(meeting));
             }
-            else return ResponseEntity.ok(complaintService.findByStatus(status));
+            else {
+                logger.info("Success");
+                return ResponseEntity.ok(complaintService.findByStatus(status));
+            }
         }
         catch (Exception e){
+            logger.error("Not Found");
             return ResponseEntity.status(404).build();
         }
 
@@ -66,9 +78,11 @@ public class ComplaintController {
     public ResponseEntity<Complaint> update(@RequestBody Complaint complaint) {
         try{
             complaintService.getById(complaint.getComplaint_id());
+            logger.info("Successfully updated" + complaint.toString());
             return ResponseEntity.ok(complaintService.update(complaint));
         }
         catch(Exception e){
+            logger.error("Not Found");
             return ResponseEntity.status(404).build();
         }
     }
@@ -79,8 +93,14 @@ public class ComplaintController {
         Long id = Long.parseLong(identifier);
         boolean response = complaintService.delete(id);
         ResponseEntity responseEntity = null;
-        if (response){ responseEntity = ResponseEntity.ok(true);}
-        else{ responseEntity = ResponseEntity.status(404).build();}
+        if (response){
+            logger.info("Success");
+            responseEntity = ResponseEntity.ok(true);
+        }
+        else{
+            logger.error("Not Found");
+            responseEntity = ResponseEntity.status(404).build();
+        }
         return responseEntity;
 
     }

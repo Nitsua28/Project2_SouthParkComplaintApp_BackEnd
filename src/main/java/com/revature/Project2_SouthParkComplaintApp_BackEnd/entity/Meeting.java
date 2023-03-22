@@ -21,5 +21,10 @@ public class Meeting {
 //    private List<String> attendees = new ArrayList<>();
 //    @ElementCollection
 //    private List<String> speakers = new ArrayList<>();;
+    public Meeting(String address, Integer time, String summary) {
+        this.address = address;
+        this.time = time;
+        this.summary = summary;
 
+    }
 }
